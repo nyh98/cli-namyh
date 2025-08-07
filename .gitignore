@@ -1,4 +1,7 @@
-node_modules
-id_ed25519
-dist
-cli-namyh
+src/
+tsconfig.json
+*.ts
+dist/
+.dockerfile
+docker-compose.yml
+node_modules/
