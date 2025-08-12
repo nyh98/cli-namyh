@@ -3,9 +3,10 @@ import { Command } from "commander";
 import * as path from "path";
 import { handleAutoCreateRepository } from "./src/handler/handle-auto-create-repository";
 import { handleAutoUploadSftp } from "./src/handler/handle-auto-upload-sftp";
-
 import { COMMANDS, OPTIONS, UploadOption } from "./src/types";
 import { handleCreateIgnore } from "./src/handler/handle-create-ignore";
+import { askYesNo } from "./src/helper/ask-yes-no";
+import { printPathSftp } from "./src/functions/print-path-sftp";
 
 const program = new Command();
 const currentPath = process.cwd();
@@ -64,9 +65,16 @@ program
     )
     .action(async (destProjectPath: string, options: UploadOption) => {
         try {
+            printPathSftp(currentPath, destProjectPath);
+            const confirmed = await askYesNo("해당 경로가 맞나요?");
+            if (!confirmed) {
+                process.exit(0);
+            }
+
             await handleAutoUploadSftp(destProjectPath, options);
         } catch (err) {
             console.error("❌ 오류:", err);
+
             process.exit(1);
         }
     });

@@ -28,10 +28,11 @@ export const handleAutoUploadSftp = async (
 
     const { json: sftpJson, readPath } = readSftpJson(inputDestProjectPath);
 
-    if (!sftpJson)
+    if (!sftpJson) {
         exitWithError(
             `.vscode/sftp.json 파일이 없습니다.\n검색 경로 ${readPath}`
         );
+    }
 
     sftpValidate(sftpJson);
 
