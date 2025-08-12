@@ -1,6 +1,0 @@
-src/
-node_modules/
-.dockerfile
-docker-compose.yml
-*.log
-tsconfig.json
